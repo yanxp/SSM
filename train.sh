@@ -1,0 +1,1 @@
+python ./tools/train_net.py --gpu 0 --solver models/pascal_voc/ResNet-101/rfcn_end2end/solver_ohem.prototxt --iters 200000 --weights data/imagenet_models/ResNet-101-model.caffemodel  --imdb voc_2007_trainval+voc_2012_trainval --cfg experiments/cfgs/rfcn_end2end_ohem.yml --rand
