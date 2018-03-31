@@ -1,7 +1,5 @@
 # SSM
-Towards Human-Machine Cooperation: Evolving Active Learning with
-Self-supervised Process for Object Detection
-
+Towards Human-Machine Cooperation: Self-supervised Sample Mining for Object Detection
 ### License
 
 SSM is released under the MIT License (refer to the LICENSE file for details).
