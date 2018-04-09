@@ -23,6 +23,7 @@ import sys, math, logging
 import scipy
 import operator
 from bitmap import BitMap
+from tqdm import tqdm
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s')
 def parse_args():
@@ -155,7 +156,7 @@ if __name__ == '__main__':
     # control al proportion
     al_proportion_checkpoint = [int(x*initial_num) for x in np.linspace(0.1,2.3,12)]
     # control ss proportion with respect to al proportion
-    ss_proportion_checkpoint = [int(x*initial_num) for x in np.linspace(1,23,12)]
+    ss_proportion_checkpoint = [int(x*initial_num) for x in np.linspace(0.5,11.5,12)]
     
     
     # get solver object
@@ -178,6 +179,7 @@ if __name__ == '__main__':
         print 'choose latest model:{}'.format(modelpath)
         model = load_model(protopath,modelpath)
         # return detect results of the unlabeledidx samples with the latest model
+        print('Process detect the unlabeled images...')
         scoreMatrix, boxRecord, yVecs  = bulk_detect(model, unlabeledidx, imdb, clslambda)
      #   logging.debug('scoreMatrix:{}, boxRecord:{}, yVecs:{}'.format(scoreMatrix.shape,
      #       boxRecord.shape, yVecs.shape))
@@ -188,7 +190,8 @@ if __name__ == '__main__':
         ss_fake_gt = [] # record fake labels for ss
         cls_loss_sum = np.zeros((imdb.num_classes,)) # record loss for each cls
         count_box_num = 0 # used for update clslambda
-        for i in range(len(unlabeledidx)):
+        print('Process Self-supervised Sample Mining...')
+        for i in tqdm(range(len(unlabeledidx))):
             img_boxes = []; cls=[]; # fake ground truth
             count_box_num += len(boxRecord[i])
             ss_idx_score_pair = [] # record re-detect score map to idx
@@ -206,7 +209,6 @@ if __name__ == '__main__':
                 if(sign!=1):
                     if(np.sum(y==1)==1 and np.where(y==1)[0]!=0): # not background
                        # add Imgae Cross Validation
-                        print('ss process ...')
                         pre_cls = np.where(y==1)[0]
                         pre_box = box
                         curr_roidb = roidb[unlabeledidx[i]]
@@ -223,7 +225,6 @@ if __name__ == '__main__':
                          continue
                 else: # al process
                     #add image to al candidate
-                    print('al process ...')
                     al_candidate_idx.append(unlabeledidx[i])
                     img_boxes=[]; cls=[]
                     break
