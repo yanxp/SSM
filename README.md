@@ -1,7 +1,16 @@
 # SSM
 Towards Human-Machine Cooperation: Self-supervised Sample Mining for Object Detection
 
-[paper](https://arxiv.org/pdf/1803.09867.pdf)
+**<a href="https://arxiv.org/pdf/1803.09867.pdf">Towards Human-Machine Cooperation: Self-supervised Sample Mining for Object Detection</a>**
+
+<a href="kezewang.com">Keze Wang</a>,
+<a href="yanxp.github.io">Xiaopeng Yan</a>,
+Dongyu Zhang,
+<a href="http://www4.comp.polyu.edu.hk/~cslzhang/">Lei Zhang</a>,
+<a href="http://www.linliang.net/">Liang Lin</a>
+
+Presented at [CVPR2018](https://arxiv.org/pdf/1803.09867.pdf)	
+
 
 ### License
 
@@ -36,6 +45,14 @@ You can go to ./tools/ and modify train_net.py to reset some parameters.Then, si
 
 2. testing
 Before testing, you can modify test.sh to choose the trained model path, then simply run sh ./test.sh to get the evaluation result.
+
+### Pytorch Implementation
+
+coming soon
+
+### Py-R-FCN-multi-GPU Implementation
+
+coming soon
 
 ### Misc
 
