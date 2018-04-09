@@ -1,5 +1,4 @@
 # SSM
-Towards Human-Machine Cooperation: Self-supervised Sample Mining for Object Detection
 
 **<a href="https://arxiv.org/pdf/1803.09867.pdf">Towards Human-Machine Cooperation: Self-supervised Sample Mining for Object Detection</a>**
 
