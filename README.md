@@ -10,7 +10,7 @@ Dongyu Zhang,
 
 Sun Yat-Sen University, Presented at [CVPR2018](https://arxiv.org/pdf/1803.09867.pdf)	
 
-! [ssm](tools/ssm.png)
+! [] (tools/ssm.png)
 
 ### License
 
