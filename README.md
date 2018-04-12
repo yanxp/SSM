@@ -8,8 +8,9 @@ Dongyu Zhang,
 <a href="http://www4.comp.polyu.edu.hk/~cslzhang/">Lei Zhang</a>,
 <a href="http://www.linliang.net/">Liang Lin</a>
 
-Presented at [CVPR2018](https://arxiv.org/pdf/1803.09867.pdf)	
+Sun Yat-Sen University, Presented at [CVPR2018](https://arxiv.org/pdf/1803.09867.pdf)	
 
+! [ssm](tools/ssm.png)
 
 ### License
 
