@@ -196,6 +196,7 @@ if __name__ == '__main__':
             count_box_num += len(boxRecord[i])
             ss_idx_score_pair = [] # record re-detect score map to idx
             avg_scores_idx = 0
+            guide_al = True
             for j,box in enumerate(boxRecord[i]):
                 boxscore = scoreMatrix[i][j] # score of a box
                 # fake label box
@@ -218,17 +219,20 @@ if __name__ == '__main__':
                             img_boxes.append(box)
                             cls.append(np.where(y==1)[0])
                             avg_scores_idx += avg_score
+                            guide_al = False
                         else:
                             discardamount += 1
                             continue
-                    elif(np.sum(y==1) != 1):
+                    else guide_al :
                          discardamount += 1
                          continue
-                else: # al process
+                elif guide_al: # al process
                     #add image to al candidate
                     al_candidate_idx.append(unlabeledidx[i])
                     img_boxes=[]; cls=[]
                     break
+                else:
+                    discardamount += 1  
             # replace the fake ground truth for the ss_candidate
             if len(img_boxes) != 0:
                 ss_idx_score_pair.append(avg_scores_idx/len(img_boxes))
