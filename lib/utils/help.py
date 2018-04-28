@@ -22,6 +22,12 @@ CLASSES=('__background__','aeroplane', 'bicycle', 'bird', 'boat',
                          'motorbike', 'person', 'pottedplant',
                          'sheep', 'sofa', 'train', 'tvmonitor')
 
+def softmax(ary):
+    ary = ary.flatten()
+    expa = np.exp(ary)
+    dom = np.sum(expa)
+    return expa/dom
+
 def choose_model(dir):
     '''
     get the latest model in in dir'''
@@ -33,12 +39,12 @@ def calcu_iou(A,B):
     '''
     calculate two box's iou
     '''
-    width = min(A[2],B[2])-max(A[0],B[0])
-    height = min(A[3],B[3])-max(A[1],B[1])
+    width = min(A[2],B[2])-max(A[0],B[0]) + 1
+    height = min(A[3],B[3])-max(A[1],B[1]) + 1
     if width<=0 or height<=0:
         return 0
-    Aarea =(A[2]-A[0])*(A[3]-A[1])
-    Barea =(B[2]-B[0])*(B[3]-B[1])
+    Aarea =(A[2]-A[0])*(A[3]-A[1] + 1)
+    Barea =(B[2]-B[0])*(B[3]-B[1] + 1)
     iner_area = width* height
     return iner_area/(Aarea+Barea-iner_area)
 
@@ -88,7 +94,7 @@ def bulk_detect(net, detect_idx, imdb, clslambda):
         BBox=[] # all eligible boxes for this img
         Score=[] # every box in BBox has k*1 score vector
         Y = [] # every box in BBox has k*1 cls vector
-        CONF_THRESH = 0.7 
+        CONF_THRESH = 0.5
         NMS_THRESH = 0.3
         for cls_ind, cls in enumerate(CLASSES[1:]):
             cls_ind += 1 # because we skipped background
@@ -101,6 +107,12 @@ def bulk_detect(net, detect_idx, imdb, clslambda):
             inds = np.where(dets[:, -1] >= CONF_THRESH)[0]
 
             if len(inds) == 0 :
+                for idx in range(len(keep)):
+                    bbox = dets[idx, :4]
+                    BBox.append(bbox)
+                    k = keep[idx]
+                    Score.append(scores[k].copy())
+                    Y.append(judge_y(scores[k]))               
                 continue
             for j in inds:
                 bbox = dets[j, :4]

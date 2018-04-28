@@ -150,7 +150,7 @@ if __name__ == '__main__':
     # static parameters
     tao = args.max_iters
     # initial hypeparameters
-    gamma = 0.3; clslambda = np.array([-np.log(0.9)]*imdb.num_classes)
+    gamma = 0.15; clslambda = np.array([-np.log(0.9)]*imdb.num_classes)
     # train record
     loopcounter = 0; train_iters = 0; iters_sum = train_iters
     # control al proportion
@@ -202,6 +202,7 @@ if __name__ == '__main__':
                 y = yVecs[i][j]
                 # the fai function
                 loss = -((1+y)/2 * np.log(boxscore) + (1-y)/2 * np.log(1-boxscore+1e-30))
+                cls_loss_sum += loss
                 # choose v by loss
                 sign, v = judge_v(loss, gamma, clslambda)
                 # print('v:{}'.format(v))
@@ -295,7 +296,11 @@ if __name__ == '__main__':
         train_roidb = [roidb[i] for i in next_train_idx]
 
         loopcounter += 1
-        
+        # update gamma and clslambda
+        if iters_sum<=args.max_iters:
+            clslambda = 0.9 * clslambda - 0.1*np.log(softmax(cls_loss_sum/(count_box_num+1e-30)))
+            gamma = min(gamma+0.05,1)
+            cls_loss_sum = 0.0        
         # add the labeled samples to finetune W
         train_iters = min(15000 ,len(train_roidb)*15-train_iters)
         iters_sum += train_iters
