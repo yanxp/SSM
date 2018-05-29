@@ -14,7 +14,7 @@ Sun Yat-Sen University, Presented at [CVPR2018](https://arxiv.org/pdf/1803.09867
 
 ### License
 
-SSM is released under the MIT License (refer to the LICENSE file for details).
+For Academic Research Use Only!
 
 ### Citing SSM
 
