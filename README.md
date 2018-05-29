@@ -46,14 +46,6 @@ You can go to ./tools/ and modify train_net.py to reset some parameters.Then, si
 2. testing
 Before testing, you can modify test.sh to choose the trained model path, then simply run sh ./test.sh to get the evaluation result.
 
-### Pytorch Implementation
-
-coming soon
-
-### Py-R-FCN-multi-GPU Implementation
-
-coming soon
-
 ### Misc
 
 Tested on Ubuntu 14.04 with a Titan X GPU (12G) and Intel(R) Xeon(R) CPU E5-2623 v3 @ 3.00GHz.
