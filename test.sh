@@ -1,1 +1,0 @@
-./tools/test_net.py --gpu 0 --def models/pascal_voc/ResNet-101/rfcn_end2end/test_agnostic.prototxt --net output/rfcn_end2end_ohem/ComposeImdb/resnet101_rfcn_ohem_iter_200000.caffemodel --imdb voc_2007_test --cfg experiments/cfgs/rfcn_end2end_ohem.yml 
