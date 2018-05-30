@@ -258,6 +258,7 @@ if __name__ == '__main__':
             print ('the net train for {} epoches'.format(iters_sum))
             break
         # 50% enter AL process
+        al_candidate_idx = set(al_candidate_idx)
         r = np.random.rand(len(al_candidate_idx))
         al_candidate_idx = [x for i,x in enumerate(al_candidate_idx) if r[i]>0.5]
         # re-rank according to consistency-score
