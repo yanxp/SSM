@@ -80,7 +80,7 @@ def bulk_detect(net, detect_idx, imdb, clslambda):
     from fast_rcnn.test import im_detect
 
     roidb = imdb.roidb
-    allBox =[]; allScore = [];  allY=[]
+    allBox =[]; allScore = [];  allY=[], al_idx=[]
     for i in detect_idx:
         imgpath = imdb.image_path_at(i)
         im = cv2.imread(imgpath)
@@ -96,6 +96,9 @@ def bulk_detect(net, detect_idx, imdb, clslambda):
         Y = [] # every box in BBox has k*1 cls vector
         CONF_THRESH = 0.5
         NMS_THRESH = 0.3
+        if np.amax(scores[:,1:])<CONF_THRESH:
+           al_idx.append(i)
+           continue
         for cls_ind, cls in enumerate(CLASSES[1:]):
             cls_ind += 1 # because we skipped background
             cls_boxes = boxes[:, 4:8]
@@ -107,12 +110,6 @@ def bulk_detect(net, detect_idx, imdb, clslambda):
             inds = np.where(dets[:, -1] >= CONF_THRESH)[0]
 
             if len(inds) == 0 :
-                for idx in range(len(keep)):
-                    bbox = dets[idx, :4]
-                    BBox.append(bbox)
-                    k = keep[idx]
-                    Score.append(scores[k].copy())
-                    Y.append(judge_y(scores[k]))               
                 continue
             for j in inds:
                 bbox = dets[j, :4]
@@ -125,7 +122,7 @@ def bulk_detect(net, detect_idx, imdb, clslambda):
                 loss = -( (1+y)/2 * np.log(scores[k]) + (1-y)/2 * np.log(1-scores[k]+(1e-30)))
 
         allBox.append(BBox[:]); allScore.append(Score[:]); allY.append(Y[:])
-    return np.array(allScore), np.array(allBox), np.array(allY)
+    return np.array(allScore), np.array(allBox), np.array(allY), al_idx
 
 
 def judge_v(loss, gamma, clslambda):

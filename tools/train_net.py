@@ -180,10 +180,10 @@ if __name__ == '__main__':
         model = load_model(protopath,modelpath)
         # return detect results of the unlabeledidx samples with the latest model
         print('Process detect the unlabeled images...')
-        scoreMatrix, boxRecord, yVecs  = bulk_detect(model, unlabeledidx, imdb, clslambda)
+        scoreMatrix, boxRecord, yVecs, al_idx  = bulk_detect(model, unlabeledidx, imdb, clslambda)
      #   logging.debug('scoreMatrix:{}, boxRecord:{}, yVecs:{}'.format(scoreMatrix.shape,
      #       boxRecord.shape, yVecs.shape))
-
+        unlabeledidx = [x for x in unlabeledidx if x not in al_idx]
         # record some detect results for updatable
         al_candidate_idx = [] # record al samples index in imdb
         ss_candidate_idx = [] # record ss samples index in imdb
@@ -196,7 +196,6 @@ if __name__ == '__main__':
             count_box_num += len(boxRecord[i])
             ss_idx_score_pair = [] # record re-detect score map to idx
             avg_scores_idx = 0
-            guide_al = True
             for j,box in enumerate(boxRecord[i]):
                 boxscore = scoreMatrix[i][j] # score of a box
                 # pseudo-labeled box
@@ -222,14 +221,13 @@ if __name__ == '__main__':
                             img_boxes.append(box)
                             cls.append(np.where(y==1)[0])
                             avg_scores_idx += avg_score
-                            guide_al = False
                         else:
                             discardamount += 1
                             continue
-                    else guide_al :
+                    else :
                          discardamount += 1
                          continue
-                elif guide_al: # al process
+                else: # al process
                     #add image to al candidate
                     if i%10000 == 0:
                         print('AL process ...')
@@ -258,7 +256,7 @@ if __name__ == '__main__':
             print ('the net train for {} epoches'.format(iters_sum))
             break
         # 50% enter AL process
-        al_candidate_idx = set(al_candidate_idx)
+        al_candidate_idx.extend(al_idx)
         r = np.random.rand(len(al_candidate_idx))
         al_candidate_idx = [x for i,x in enumerate(al_candidate_idx) if r[i]>0.5]
         # re-rank according to consistency-score
