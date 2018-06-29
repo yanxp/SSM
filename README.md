@@ -20,16 +20,17 @@ For Academic Research Use Only!
 
 If you find SSM useful in your research, please consider citing:
 
-    @inproceedings{wang18ssm,
-        Author = {Keze Wang, Xiaopeng Yan, Dongyu Zhang, Lei Zhang, Liang Lin},
-        Title = {{SSM}: Towards Human-Machine Cooperation: Self-supervised Sample Mining for Object Detection},
-        Journal = {Proc. of IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
-        Year = {2018}
-    }
+    @InProceedings{Wang_2018_CVPR,
+              author = {Wang, Keze and Yan, Xiaopeng and Zhang, Dongyu and Zhang, Lei and Lin, Liang},
+              title = {Towards Human-Machine Cooperation: Self-Supervised Sample Mining for Object Detection},
+              booktitle = {The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+              month = {June},
+              year = {2018}
+            }
 
 ### Dependencies 
 
-The code is built on top of R-FCN. Please carefully read through py-R-FCN and make sure py-R-FCN can run within your enviornment.
+The code is built on top of R-FCN. Please carefully read through [py-R-FCN](https://github.com/YuwenXiong/py-R-FCN) and make sure py-R-FCN can run within your enviornment.
 
 ### Datasets/Pre-trained model
 
