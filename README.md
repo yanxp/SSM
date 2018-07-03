@@ -41,11 +41,13 @@ The code is built on top of R-FCN. Please carefully read through [py-R-FCN](http
 ### Usage
 
 1. training
-Before training, please prepare your dataset and pre-trained model and store them in the right path as R-FCN.
+
+    Before training, please prepare your dataset and pre-trained model and store them in the right path as R-FCN.
 You can go to ./tools/ and modify train_net.py to reset some parameters.Then, simply run sh ./train.sh.
 
 2. testing
-Before testing, you can modify test.sh to choose the trained model path, then simply run sh ./test.sh to get the evaluation result.
+
+    Before testing, you can modify test.sh to choose the trained model path, then simply run sh ./test.sh to get the evaluation result.
 
 ### Misc
 
