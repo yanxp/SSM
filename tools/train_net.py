@@ -223,7 +223,9 @@ if __name__ == '__main__':
                             avg_scores_idx += avg_score
                         else:
                             discardamount += 1
-                            continue
+                            al_candidate_idx.append(unlabeledidx[i])
+                            img_boxes=[]; cls=[]
+                            break
                     else :
                          discardamount += 1
                          continue
