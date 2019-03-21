@@ -236,8 +236,6 @@ if __name__ == '__main__':
                     al_candidate_idx.append(unlabeledidx[i])
                     img_boxes=[]; cls=[]
                     break
-                else:
-                    discardamount += 1  
             # Consider the ss_candidate with pseudo-labels as fake ground truth
             if len(img_boxes) != 0:
                 ss_idx_score_pair.append(avg_scores_idx/len(img_boxes))
