@@ -52,3 +52,7 @@ You can go to ./tools/ and modify train_net.py to reset some parameters.Then, si
 ### Misc
 
 Tested on Ubuntu 14.04 with a Titan X GPU (12G) and Intel(R) Xeon(R) CPU E5-2623 v3 @ 3.00GHz.
+
+### Acknowledgement 
+
+Thank for the contribution of [Xiaoxi Wang](http://www.sysu-hcp.net/home/).
